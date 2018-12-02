@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Request file dengan Ajax</title>
+<script language = "javascript">
+var XMLHttpRequestObject=false;
+if (window.XMLHttpRequest) {
+  XMLHttpRequestObject = new XMLHttpRequest();
+} else if (window.ActiveXObject) {
+  XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHttp");
+}
+function getdata(url,divhasil) {
+  if (XMLHttpRequestObject) {
+    var obj = document.getElementById(divhasil);
+    XMLHttpRequestObject.open("GET", url);
+    XMLHttpRequestObject.onreadystatechange = function() {
+    if (XMLHttpRequestObject.readyState == 4 && 
+
+XMLHttpRequestObject.status == 200) {
+      obj.innerHTML = XMLHttpRequestObject.responseText;
+    }
+    }
+  XMLHttpRequestObject.send(null);
+  }
+}
+</script>
+</head>
+<body>
+<h1>Mengambil data dari file HTML</h1>
+<form>
+<input type="button" value="Tampilkan Data" onclick="getdata
+
+('/site/tampil','divhasil')">
+</form>
+<div id="divhasil">
+Isi dari tampil.html akan ditampilkan disini 
+</div>
+</body>
+</html>

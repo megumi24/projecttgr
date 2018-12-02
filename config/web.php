@@ -27,15 +27,16 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // 'viewPath' => '@app/mail',
+            'viewPath' => '@app/mailer',
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'dewikusuma49@gmail.com',
-                'password' => 'uxrclkoxbcnwjnbw',
+                'username' => 'develop24else@gmail.com',
+                'password' => 'else12345',
                 'port' => '587',
                 'encryption' => 'tls',
         ],
+        
     ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -58,18 +59,37 @@ $config = [
 
         //  'urlManager' => [
         //     'class' => 'yii\web\UrlManager',
-        //     'enablePrettyUrl' => true,
-        //     'showScriptName' => false,
+        //     // 'enablePrettyUrl' => true,
+        //     // 'showScriptName' => false,
         //     'rules' => array(
         //         '<controller:\w+>/<id:\d+>' => '<controller>/view',
         //         '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
         //         '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+        //         'surat/create/<idkasus:\d+>/idjenissurat:\d+>' => 'surat/create',
         //     ),
         // ],
     ],
-    // 'params' => $params,
-  'params' => [
-     'fileUploadUrl' => 'uploads/', ],
+	
+	'modules'=>[
+		'gridview' =>  [
+			'class' => '\kartik\grid\Module'
+			// enter optional module parameters below - only if you need to  
+			// use your own export download action or custom translation 
+			// message source
+			// 'downloadAction' => 'gridview/export/download',
+			// 'i18n' => []
+		],
+		'pdfjs' => [
+			'class' => '\yii2assets\pdfjs\Module',
+		],
+
+	],
+	
+    'params' => $params,
+	/*'params' => [
+		'fileUploadUrl' => 'uploads/', 
+        'adminEmail' => 'develop24else@gmail.com',
+	],*/
       
 ];
 

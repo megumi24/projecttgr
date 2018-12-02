@@ -7,13 +7,14 @@ use Yii;
 /**
  * This is the model class for table "rincian_pembayaran".
  *
- * @property string $nomor_sktjm
- * @property integer $ntpn
- * @property integer $pembayaran
- * @property integer $kode_satker
- * @property string $status
+ * @property int $id
+ * @property int $id_kasus
+ * @property string $ntpn
+ * @property int $pembayaran
+ * @property int $sisa_pembayaran
+ * @property int $periode_bayar
  *
- * @property PembayaranTgr $nomorSktjm
+ * @property KasusTgr $kasus
  */
 class RincianPembayaran extends \yii\db\ActiveRecord
 {
@@ -31,11 +32,12 @@ class RincianPembayaran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nomor_sktjm', 'ntpn', 'pembayaran', 'kode_satker', 'status'], 'required'],
-            [['ntpn', 'pembayaran', 'kode_satker'], 'integer'],
-            [['nomor_sktjm'], 'string', 'max' => 50],
-            [['status'], 'string', 'max' => 10],
-            [['nomor_sktjm'], 'exist', 'skipOnError' => true, 'targetClass' => PembayaranTgr::className(), 'targetAttribute' => ['nomor_sktjm' => 'nomor_sktjm']],
+            [['id', 'id_kasus', 'ntpn', 'pembayaran', 'sisa_pembayaran', 'tgl_bayar'], 'required'],
+            [['id', 'id_kasus', 'pembayaran', 'sisa_pembayaran'], 'integer'],
+            [['tgl_bayar', 'tgl_input'], 'safe'],
+            [['ntpn'], 'string', 'max' => 20],
+            [['id'], 'unique'],
+            [['id_kasus'], 'exist', 'skipOnError' => true, 'targetClass' => Kasus::className(), 'targetAttribute' => ['id_kasus' => 'id_kasus']],
         ];
     }
 
@@ -45,19 +47,20 @@ class RincianPembayaran extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'nomor_sktjm' => 'Nomor Sktjm',
-            'ntpn' => 'Ntpn',
+            'id' => 'ID',
+            'id_kasus' => 'Id Kasus',
+            'ntpn' => 'Nomor Dokumen',
             'pembayaran' => 'Pembayaran',
-            'kode_satker' => 'Kode Satker',
-            'status' => 'Status',
+            'sisa_pembayaran' => 'Sisa Pembayaran',
+            'tgl_bayar' => 'Tanggal Pembayaran',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getNomorSktjm()
+    public function getKasus()
     {
-        return $this->hasOne(PembayaranTgr::className(), ['nomor_sktjm' => 'nomor_sktjm']);
+        return $this->hasOne(Kasus::className(), ['id_kasus' => 'id_kasus']);
     }
 }

@@ -11,8 +11,11 @@ use Yii;
  * @property string $nama
  * @property string $email
  * @property string $no_hp
+ * @property string $pangkat_gol
+ * @property string $jabatan
+ * @property string $alamat_rumah
  *
- * @property SuratTagihan3[] $suratTagihan3s
+ * @property Kasus[] $kasuses
  */
 class Pegawai extends \yii\db\ActiveRecord
 {
@@ -30,11 +33,13 @@ class Pegawai extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nip', 'nama', 'email', 'no_hp'], 'required'],
-            [['nip'], 'string', 'max' => 30],
+            [['nip', 'nama', 'email', 'no_hp', 'pangkat_gol', 'jabatan', 'alamat_rumah'], 'required'],
+            [['nip'], 'string', 'max' => 20],
             [['nama'], 'string', 'max' => 100],
             [['email'], 'string', 'max' => 50],
             [['no_hp'], 'string', 'max' => 14],
+            [['pangkat_gol', 'jabatan', 'alamat_rumah'], 'string', 'max' => 30],
+            [['nip'], 'unique'],
         ];
     }
 
@@ -48,22 +53,17 @@ class Pegawai extends \yii\db\ActiveRecord
             'nama' => 'Nama',
             'email' => 'Email',
             'no_hp' => 'No Hp',
+            'pangkat_gol' => 'Pangkat Gol',
+            'jabatan' => 'Jabatan',
+            'alamat_rumah' => 'Alamat Rumah',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSuratTagihan2s()
+    public function getKasuses()
     {
-        return $this->hasMany(SuratTagihan2::className(), ['nip' => 'nip']);
-    }
-
-     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSuratTagihan3s()
-    {
-        return $this->hasMany(SuratTagihan3::className(), ['nip' => 'nip']);
+        return $this->hasMany(Kasus::className(), ['nip' => 'nip']);
     }
 }

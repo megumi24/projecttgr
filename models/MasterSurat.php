@@ -7,10 +7,10 @@ use Yii;
 /**
  * This is the model class for table "master_surat".
  *
- * @property string $id_level
- * @property int $level_kasus
- * @property string $jenis_kasus
- * @property string $nama_surat
+ * @property int $id
+ * @property string $jenis_surat
+ *
+ * @property Surat[] $surats
  */
 class MasterSurat extends \yii\db\ActiveRecord
 {
@@ -28,10 +28,10 @@ class MasterSurat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['level_kasus', 'jenis_kasus', 'nama_surat'], 'required'],
-            [['level_kasus'], 'integer'],
-            [['jenis_kasus'], 'string', 'max' => 20],
-            [['nama_surat'], 'string', 'max' => 100],
+            [['id', 'jenis_surat'], 'required'],
+            [['id'], 'integer'],
+            [['jenis_surat'], 'string', 'max' => 50],
+            [['id'], 'unique'],
         ];
     }
 
@@ -41,10 +41,16 @@ class MasterSurat extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_level' => 'Id Level',
-            'level_kasus' => 'Level Kasus',
-            'jenis_kasus' => 'Jenis Kasus',
-            'nama_surat' => 'Nama Surat',
+            'id' => 'ID',
+            'jenis_surat' => 'Jenis Surat',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSurats()
+    {
+        return $this->hasMany(Surat::className(), ['id_jenissurat' => 'id']);
     }
 }

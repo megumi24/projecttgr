@@ -6,7 +6,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
    public static function tableName()
     {
-        return 'admin';
+        return 'pengguna';
     }
 
     /**
