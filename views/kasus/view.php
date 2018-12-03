@@ -67,13 +67,14 @@ $this->params['breadcrumbs'][] = $this->title;
 				echo Html::a('Ubah Status Kasus', ['status', 'id' => $model->id_kasus], ['class' => 'btn btn-primary']);
 			}
 		?> 
-        <?= Html::a('Hapus Kasus', ['delete', 'id' => $model->id_kasus], [
+        <?php if ( Yii::$app->user->getIdentity()->level==2 ){
+        	echo Html::a('Hapus Kasus', ['delete', 'id' => $model->id_kasus], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ]); } ?>
 
     </p>
 

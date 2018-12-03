@@ -38,9 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
     <div>
-        <?= Html::a('Cari Debitur', ['create'], ['class' => 'btn btn-link']) ?>
 
-        <?= $form->field($model, 'id_debitur')->textInput()->hint('Masukkan NIP untuk pegawai') ?>
+        <?= $form->field($model, 'id_debitur')->textInput() ?>
 
         <?= $form->field($model, 'tipe_kasus')->dropDownList(
         ['TGR' => 'TGR', 

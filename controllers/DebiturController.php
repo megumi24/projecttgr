@@ -68,16 +68,28 @@ class DebiturController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            /*if($this->jenis_debitur == 0){
-            $model->id_debitur = $model->nip;
-        }elseif ($this->jenis_debitur== 1) {
-            $kdsatker = $this->getidentity->username;
-            $thn = time('Y');
-            $debitur = select * where $model->tahun_daftar = $thn and $model->jenis_debitur = 1 and $model->satker = $kdsatker;
-            $debt = str_pad(count($debitur),3,0);
-            $model->id_debitur = 'NPG'.$kdsatker.$thn.$debt;
-        }*/
-            return $this->redirect(['view', 'id' => $model->id_debitur]);
+            $kdsatker = Yii::$app->user->getIdentity()->username;
+            $model->satker = $kdsatker;
+
+            $thn = date('Y');
+            $model->tahun_daftar = $thn;
+
+            if($model->jenis_debitur == 0){
+                $model->id_debitur = $model->NIP;
+            }elseif ($model->jenis_debitur== 1) {
+                $query = new \yii\db\Query();
+                $rows = $query->from('debitur')
+                                ->where(['jenis_debitur'=>1])
+                                //->andWhere(['tahun_daftar' => $thn])
+                                //->andWhere(['satker'=>$kdsatker])// Specify multiple conditions
+                                ->all(); // Returns the first row of the result
+
+                $debt = str_pad(count($rows),3,0, STR_PAD_LEFT);
+                $model->id_debitur = 'NPG'.$kdsatker.$thn.$debt;
+            }
+
+            $model->save(false);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [

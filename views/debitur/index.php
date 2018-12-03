@@ -16,7 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Tambahkan Debitur Baru', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+        if ( Yii::$app->user->getIdentity()->level==2 ){
+            echo Html::a('Tambahkan Debitur Baru', ['create'], ['class' => 'btn btn-success']);
+        } ?>
     </p>
 
     <?= GridView::widget([
@@ -26,7 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id_debitur',
-            'jenis_debitur',
+           
+            [
+            'attribute' => 'jenis_debitur',
+            'value' => function($model){
+                if($model->jenis_debitur == '0'){
+                    return 'Pegawai';
+                }elseif($model->jenis_debitur == '1'){
+                    return 'Non Pegawai';
+                }
+            }
+            ],
             'nama',
             'NIP',
             'alamat',
@@ -36,8 +49,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'yii\grid\ActionColumn',
             'header' => 'Action',
             'options'=>['class'=>'action-column'],
-            'template' => '{update}  {hapus}',
+            'template' => '{update} {delete}',
             'buttons' => [
+                'view' => function($url,$model,$key){
+                            $btn = Html::a("<span class='glyphicon glyphicon-eye-open'></span>",
+                            ['view', 'id'=>$model->id_debitur],
+                            ['title' => Yii::t('app', 'Lihat Debitur')]
+                        );
+                    return $btn;
+                },
+
                 'update' => function($url,$model,$key){
                             $btn = Html::a("<span class='glyphicon glyphicon-pencil'></span>",
                             ['update', 'id'=>$model->id_debitur],
@@ -47,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'hapus' => function($url,$model,$key){
                             $btn = Html::a("<span class='glyphicon glyphicon-trash'></span>",
-                            ['delete', 'id'=>$model->id_debitur],
+                            ['delete', 'id' => $model->id_debitur],
                             ['title' => Yii::t('app', 'Hapus Debitur')]
                         );
                     return $btn;

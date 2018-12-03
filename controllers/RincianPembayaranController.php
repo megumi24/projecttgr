@@ -170,6 +170,7 @@ class RincianPembayaranController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->id_kasus = $id;
+            $model->id = count(RincianPembayaran::find()->all());
             $model->save(false);
             return $this->redirect(['rincian', 'id' => $model->id_kasus]);
         }

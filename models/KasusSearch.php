@@ -19,7 +19,7 @@ class KasusSearch extends Kasus
     {
         return [
             [['id_kasus', 'jenis_kerugian', 'nilai', 'id_debitur'], 'integer'],
-            [['nama_peristiwa', 'tgl_dibuat', 'tgl_peristiwa', 'kdsatker', 'status_Kasus', 'tahun', 'ket_lain'], 'safe'],
+            [['nama_peristiwa', 'tgl_dibuat', 'tgl_peristiwa', 'kdsatker', 'status_Kasus', 'ket_lain'], 'safe'],
         ];
     }
 
@@ -64,7 +64,6 @@ class KasusSearch extends Kasus
             'tgl_peristiwa' => $this->tgl_peristiwa,
             'jenis_kerugian' => $this->jenis_kerugian,
             'nilai' => $this->nilai,
-            'tahun' => $this->tahun,
             'id_debitur' => $this->id_debitur,
         ]);
 

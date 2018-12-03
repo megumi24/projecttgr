@@ -136,6 +136,7 @@ class KasusController extends Controller
     public function actionCreate()
     {
         $kasus =new Kasus();
+       
 
         if($kasus->load(Yii::$app->request->post())){
             $kasus->nomor_sktjm = '';
@@ -143,6 +144,10 @@ class KasusController extends Controller
             $kasus->kdsatker = Yii::$app->user->getIdentity()->username;
             $kasus->status_kasus = 0;
             $kasus->tata_cara = '';
+
+            //return $this->redirect(['dokumen', 'id' => $kasus->id_kasus]);
+           
+
 
             $kasus->save(false);
 
@@ -304,7 +309,8 @@ class KasusController extends Controller
     public function actionStatus($id){
 		$model = $this->findModel($id);
 		
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		if ($model->load(Yii::$app->request->post())) {
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id_kasus]);
         } else {
             return $this->render('status', [

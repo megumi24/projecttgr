@@ -53,7 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
    <br/>
 
     <p>
-        <?= Html::a('Tambah Pembayaran', ['create', 'id' => $kasus->id_kasus], ['class' => 'btn btn-primary']) ?>
+        <?php if ( Yii::$app->user->getIdentity()->level==2 ){
+            echo Html::a('Tambah Pembayaran', ['create', 'id' => $kasus->id_kasus], ['class' => 'btn btn-primary']);} ?>
         <?= Html::a('Nota Pembayaran', ['rincian-pembayaran/nota', 'id' => $kasus->id_kasus], ['class' => 'btn btn-info']) ?>
     </p>
 

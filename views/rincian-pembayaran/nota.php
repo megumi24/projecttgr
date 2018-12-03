@@ -12,19 +12,19 @@ use app\models\Kasus;
 <table id="info">
 	<tr>
 		<td style="width: 200px;">Nomor SKTJM</td>
-		<td>:&nbsp
+		<td>:
 			<?= $kasus->nomor_sktjm;?>
 		</td>
 	</tr>
 	<tr>
 		<td>Nama Debitur</td>
-		<td>:&nbsp
+		<td>:
 			<?= $kasus->id_debitur ?>
 		</td>
 	</tr>
 	<tr>
 		<td>Jumlah Tertagih</td>
-		<td>:&nbsp
+		<td>:
 			<?= $kasus->nilai ?>
 		</td>
 	</tr>
@@ -35,7 +35,7 @@ use app\models\Kasus;
 <?php
 		
 ?>
-<table id="rincian" style="width: 100%; border: 1px solid black;border-collapse: collapse;">
+<table id="rincian" border =1 style="width: 100%; border-collapse: collapse;">
 	<tr style="background: rgba(255, 99, 71, 0.5);">
 		<th>No</th>
 		<th>Nomor Dokumen</th>
@@ -80,16 +80,3 @@ use app\models\Kasus;
 
 </div>
 
-<style type="text/css">
-table#rincian {
-    border-collapse: collapse;
-}
-table#rincian th, table#rincian td{
-    border: 1px solid black;
-}
-table#rincian th{
-    height: 50px;
-    text-align: center;
-}
-
-</style>
